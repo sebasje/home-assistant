@@ -10,11 +10,10 @@ from homeassistant import core
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers import aiohttp_client, config_validation as cv
 
-from .const import DOMAIN, LOGGER
+from .const import LOGGER
 from .errors import AuthenticationRequired, CannotConnect
 from .helpers import create_config_flow
 
-SERVICE_HUE_SCENE = "hue_activate_scene"
 ATTR_GROUP_NAME = "group_name"
 ATTR_SCENE_NAME = "scene_name"
 SCENE_SCHEMA = vol.Schema(
@@ -85,10 +84,6 @@ class HueBridge:
             hass.config_entries.async_forward_entry_setup(self.config_entry, "sensor")
         )
 
-        hass.services.async_register(
-            DOMAIN, SERVICE_HUE_SCENE, self.hue_activate_scene, schema=SCENE_SCHEMA
-        )
-
         self.parallel_updates_semaphore = asyncio.Semaphore(
             3 if self.api.config.modelid == "BSB001" else 10
         )
@@ -115,8 +110,6 @@ class HueBridge:
         # If the authentication was wrong.
         if self.api is None:
             return True
-
-        # self.hass.services.async_remove(DOMAIN, SERVICE_HUE_SCENE)
 
         # If setup was successful, we set api variable, forwarded entry and
         # register service
