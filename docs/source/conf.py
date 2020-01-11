@@ -17,15 +17,28 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-import sys
-import os
 import inspect
+import os
+import sys
 
-from homeassistant.const import __version__, __short_version__
-from setup import (
-    PROJECT_NAME, PROJECT_LONG_DESCRIPTION, PROJECT_COPYRIGHT, PROJECT_AUTHOR,
-    PROJECT_GITHUB_USERNAME, PROJECT_GITHUB_REPOSITORY, GITHUB_PATH,
-    GITHUB_URL)
+from homeassistant.const import __short_version__, __version__
+
+PROJECT_NAME = 'Home Assistant'
+PROJECT_PACKAGE_NAME = 'homeassistant'
+PROJECT_AUTHOR = 'The Home Assistant Authors'
+PROJECT_COPYRIGHT = ' 2013-2018, {}'.format(PROJECT_AUTHOR)
+PROJECT_LONG_DESCRIPTION = ('Home Assistant is an open-source '
+                            'home automation platform running on Python 3. '
+                            'Track and control all devices at home and '
+                            'automate control. '
+                            'Installation in less than a minute.')
+PROJECT_GITHUB_USERNAME = 'home-assistant'
+PROJECT_GITHUB_REPOSITORY = 'home-assistant'
+
+GITHUB_PATH = '{}/{}'.format(
+    PROJECT_GITHUB_USERNAME, PROJECT_GITHUB_REPOSITORY)
+GITHUB_URL = 'https://github.com/{}'.format(GITHUB_PATH)
+
 
 sys.path.insert(0, os.path.abspath('_ext'))
 sys.path.insert(0, os.path.abspath('../homeassistant'))
