@@ -116,7 +116,7 @@ class HueBridge:
         if self.api is None:
             return True
 
-        self.hass.services.async_remove(DOMAIN, SERVICE_HUE_SCENE)
+        # self.hass.services.async_remove(DOMAIN, SERVICE_HUE_SCENE)
 
         # If setup was successful, we set api variable, forwarded entry and
         # register service
@@ -134,11 +134,14 @@ class HueBridge:
         # None and True are OK
         return False not in results
 
-    async def hue_activate_scene(self, call, updated=False):
+    # async def hue_activate_scene(self, call, updated=False):
+    async def hue_activate_scene(self, call, updated=False, hide_warnings=False):
         """Service to call directly into bridge to set scenes."""
         group_name = call.data[ATTR_GROUP_NAME]
         scene_name = call.data[ATTR_SCENE_NAME]
-
+        LOGGER.warning(
+            "SEBAS activating scene %s" " on group %s", scene_name, group_name
+        )
         group = next(
             (group for group in self.api.groups.values() if group.name == group_name),
             None,
